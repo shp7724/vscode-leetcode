@@ -18,7 +18,9 @@ export async function executeCommand(command: string, args: string[], options: c
         childProc.stdout?.on("data", (data: string | Buffer) => {
             data = data.toString();
             result = result.concat(data);
-            leetCodeChannel.append(data);
+            if (!/\[\s*\d{1,4}\s*\].*?%\)/.test(data)) {
+                leetCodeChannel.append(data);
+            }
         });
 
         childProc.stderr?.on("data", (data: string | Buffer) => leetCodeChannel.append(data.toString()));

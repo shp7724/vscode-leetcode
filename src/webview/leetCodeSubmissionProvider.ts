@@ -13,7 +13,7 @@ class LeetCodeSubmissionProvider extends LeetCodeWebview {
 
     public show(resultString: string): void {
         this.result = this.parseResult(resultString);
-        this.showWebviewInternal();
+        // this.showWebviewInternal();  // disable webview
         this.showKeybindingsHint();
     }
 
