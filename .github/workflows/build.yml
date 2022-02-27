@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   linux:
@@ -12,67 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
 
-    - name: Install Node.js modules
-      run: npm install
+      - name: Install Node.js modules
+        run: npm ci
 
-    - name: Lint
-      run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-    - name: VSCE Packge
-      run: npx vsce package
+      - name: VSCE Packge
+        run: npx vsce package
 
-  windows:
-    name: Windows
-    runs-on: windows-latest
-    timeout-minutes: 30
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-
-    - name: Install Node.js modules
-      run: npm install
-
-    - name: Lint
-      run: npm run lint
-
-    - name: VSCE Packge
-      run: npx vsce package
-
-  darwin:
-    name: macOS
-    runs-on: macos-latest
-    timeout-minutes: 30
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-
-    - name: Install Node.js modules
-      run: npm install
-
-    - name: Lint
-      run: npm run lint
-
-    - name: VSCE Packge
-      run: npx vsce package
-    
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v2
-      with:
-       name: vscode-leetcode
-       path: |
-          **/*.vsix
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: vscode-leetcode
+          path: |
+            **/*.vsix
